@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     height: "15%",
     width: "100%",
     alignItems: "center",
-    backgroundColor: "#000f2f",
+    backgroundColor: "#1c262f",
     color: "#fff"
   },
   main: {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   menu: {
     flex: 2,
-    backgroundColor: "#808080",
+    backgroundColor: "#2e3d49",
 
   
   },
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     height: "10%",
-    backgroundColor: "#000f2f",
+    backgroundColor: "#1c262f",
     color: '#fff',
     alignItems: "center",
   }
