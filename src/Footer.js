@@ -2,7 +2,14 @@ import React from "react";
 
 class Footer extends React.Component {
   render() {
-    return <p>Copyrights reserved@ Neighbourhood App</p>;
+    return (
+      <div><p>Copyrights reserved@ Neighbourhood App</p></div>
+    
+    
+    
+    
+    
+    );
   }
 }
 export default Footer;

@@ -20,7 +20,9 @@ class App extends Component {
             <MapContainer />
           </View>
         </View>
-        <View style={styles.footer} />
+        <View style={styles.footer}>
+<Footer />
+        </View>
       </View>
     );
   }
@@ -45,15 +47,19 @@ const styles = StyleSheet.create({
   },
   menu: {
     flex: 2,
-    backgroundColor: "#00ff2f"
+    backgroundColor: "#808080",
+
+  
   },
   mapcontainer: {
     flex: 5,
-    backgroundColor: "#ff54ff"
+    backgroundColor: "#c1ffff",
   },
   footer: {
     height: "10%",
-    backgroundColor: "#00f0f0"
+    backgroundColor: "#000f2f",
+    color: '#fff',
+    alignItems: "center",
   }
 });
 
