@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Image, StyleSheet, Text, View } from "react-native";
 import Geocoder from 'react-native-geocoding';
-import { Map, InfoWindow, Marker, GoogleApiWrapper} from "google-maps-react";
+import { Map, InfoWindow, Marker, GoogleApiWrapper, Animation, Icon} from "google-maps-react";
 
 
 export class MapContainer extends React.Component {
@@ -63,7 +63,8 @@ export class MapContainer extends React.Component {
  
   render() {
 
-//`const {locations}=this.state`
+const {locations}=this.props
+const {markerLoc, activeMarker}=this.state
     return (
       
       <Map google={this.props.google}
@@ -73,28 +74,52 @@ export class MapContainer extends React.Component {
           zoom={5}
            
           >
-         
+         {locations.map((location)=>(
           <Marker 
-        name="Giza"
-        position={{lat:30.00808, lng:31.21093 }}
-        title=" Giza is located in Egypt country"
-        onClick={this.onMarkerClick}
-          />
+  
+          className="marker"
+          name={location.name}
+          position={location.position}
+          title={location.title}
+          animation= {this.props.google.maps.Animation.DROP}
+         description=
+         {
+          "Country: " + location.description.Country+", Governorate: "+ 
+        location.description.Governorate +", Population: "+
+        location.description.Population +", Elevation: "+
+        location.description.Elevation +", TimeZone: "+
+        location.description.TimeZone +", Longitude: "+
+        location.description.Longitude +", Latitude: "+
+        location.description.Latitude +", Airport: "+
+        location.description.Airport 
+        }
+          onClick={this.onMarkerClick}
           
-        <Marker 
-        name="Aswan"
-        position={{lat:24.09082, lng:32.89942  }}
-        title=" Aswan is located in Egypt country"
-        onClick={this.onMarkerClick}
+          
+          
+            />
+          
+         ))}
+          
+          
         
-        />
              
         <InfoWindow
+
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}>
             <div>
               <h2>{this.state.selectedPlace.name}</h2>
+             
+              <p  style={{fontSize: '1.5em', lineHeight: 1.5, padding:5 ,maxWidth:"200px",
+              wordWrap:"break-word"}}>
+              {this.state.selectedPlace.description
+
+              
+              }
+              </p>
             </div>
+            
         </InfoWindow>
 
       </Map>
@@ -103,12 +128,8 @@ export class MapContainer extends React.Component {
    
   }
 }
-const styles = StyleSheet.create({
-marker:{
-  
-}
 
-})
+
 
 export default GoogleApiWrapper({
   apiKey: "AIzaSyA6r-0uKAveD9h5h16UOg_et35IXO2XW2A"

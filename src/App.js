@@ -12,31 +12,83 @@ class App extends Component {
     this.state = {
       togglestate: true,
       locations: [{
-        id: 1,
-        name: "Cairo",
-        title: "Cairo is the capital of Egypt",
-        position:{lat: 30.06263, lng: 31.24967}
+              id: 1,
+              name: "Cairo",
+              title: "Cairo is the capital of Egypt",
+              position:{lat: 30.06263, lng: 31.24967},
+              description: 
+                    {Country:	"Egypt",
+                    Governorate:	"Muhafazat al Qahirah",
+                    Population:	"7,734,614",
+                    Elevation:	"23 m over sea level",
+                    TimeZone:	"EEST",
+                    Longitude:	31.249670,
+                    Latitude:	30.062630,
+                    Airport:	"Cairo International Airport",}
+                  
             },{
               id: 2,
-        name: "Giza",
-        title: "Giza where pyramids located in Egypt",
-        position:{lat:30.00808, lng:31.21093 }
+              name: "Giza",
+              title: "Giza where pyramids located in Egypt",
+              position:{lat:30.00808, lng:31.21093 },
+              description: 
+                    {Country:	"Egypt",
+                    Governorate:	"Al Jizah",
+                    Population:	"2,443,203",
+                    Elevation:	"	30 m over sea level",
+                    TimeZone:	"EEST",
+                    Longitude:	31.210930,
+                    Latitude:	30.008080,
+                   Airport:	"Cairo International Airport"
+                  }
+                  
       },{
-        id: 3,
-        name: "Alexandria",
-        title: "Alexandria is the Meditrainian Sea shore of Egypt",
-        position:{lat: 31.21564, lng: 29.95527}
+              id: 3,
+              name: "Alexandria",
+              title: "Alexandria is the Mediterranean Sea shore of Egypt",
+              position:{lat: 31.21564, lng: 29.95527},
+              description: 
+                    {Country:	"Egypt",
+                    Governorate:	"	Alexandria",
+                    Population:	"3,811,516",
+                    Elevation:	"0 m over sea level",
+                    TimeZone:	"EEST",
+                    Longitude:	29.955270,
+                    Latitude:	31.215640,
+                    Airport:	"Borg El Arab Airport",}
+                  
       },{
-        id: 4,
-        name: "Hurghada",
-        title: "Hurghada is the Red Sea shore of Egypt",
-        position:{lat: 27.25738, lng: 33.81291}
+              id: 4,
+              name: "Hurghada",
+              title: "Hurghada is the Red Sea shore of Egypt",
+              position:{lat: 27.25738, lng: 33.81291},
+              description: 
+                    {Country:	"Egypt",
+                    Governorate:	"Red Sea",
+                    Population:	"95,622",
+                    Elevation:	"11 m over sea level",
+                    TimeZone:	"EEST",
+                    Longitude:	33.812910,
+                    Latitude:	27.257380,
+                    Airport:	"Hurghada International Airport",}
+                  
       },{
-        id: 5,
-        name: "Aswan",
-        title: "Aswan is a famous palace to visit in Egypt",
-        position:{lat:24.09082, lng:32.89942  }
-      }],
+              id: 5,
+              name: "Aswan",
+              title: "Aswan is a famous palace to visit in Egypt",
+              position:{lat:24.09082, lng:32.89942  },
+              description: 
+                    {Country:	"Egypt",
+                    Governorate:	"Aswan",
+                    Population:	"241,261",
+                    Elevation:	"99 m over sea level",
+                    TimeZone:	"EEST",
+                    Longitude:	32.899420,
+                    Latitude:	24.090820,
+                    Airport:	"Aswan International Airport",}
+                  
+                }
+    ],
     }
     this.togglestate = this.togglestate.bind(this);
   }
@@ -79,7 +131,7 @@ class App extends Component {
           </View>
           <View style={styles.mapcontainer}>
             <MapContainer 
-         
+            locations={this.state.locations}
           
             />
           </View>
