@@ -97,10 +97,11 @@ class App extends Component {
     this.togglestate = this.togglestate.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
     this.clearQuery = this.clearQuery.bind(this);
-    //this.filterQuery= this.filterQuery.bind(this);
+    this.getFsquareData= this.getFsquareData.bind(this);
   }
 // mount function
 componentWillMount=()=>{
+  this.getFsquareData()
 }
 
      
@@ -112,7 +113,7 @@ componentWillMount=()=>{
     }));
   }
   //fetch foursquare 
-  /*getFsquareData = (query)=>{
+  getFsquareData = (query)=>{
 
       const endPoint= "https://api.foursquare.com/v2/venues/explore?";
  
@@ -123,16 +124,24 @@ componentWillMount=()=>{
         query: query,
         v: '20180323',
       }
-      Axios.get(endPoint + new URLSearchParams(params).then(response=>{
+      fetch(`https://api.foursquare.com/v2/venues/explore?client_id=${params.client_id}&client_secret=${params.client_secret}&v=${params.v}&limit=1&ll=${params.ll}&query=${params.query}`)
+    .then(function(response) {
+        // Code for handling API response
+        console.log(response)
+    })
+    .catch(function() {
+        // Code for handling errors
+    });
+      /*Axios.get(endPoint + new URLSearchParams(params).then(response=>{
         this.setState({
         response:   
-        })
-      }))
+        })*/
+      }//))
       
       
-       console.log(response)
-    }
-*/
+     
+    
+
   // add an update state function
 updateQuery = (query)=>{
   this.setState({query: query})
