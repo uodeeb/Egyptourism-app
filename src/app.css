@@ -9,3 +9,6 @@
 .clicked-place {
 color: aqua;
 } 
+.unclicked-place{
+    color: #fff;
+}

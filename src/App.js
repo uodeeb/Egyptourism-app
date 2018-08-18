@@ -4,13 +4,17 @@ import Header from "./Header";
 import Menu from "./Menu";
 import Footer from "./Footer";
 import MapContainer from "./MapContainer";
-
+import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'
+import Axios from 'axios'
 class App extends Component {
    // constructor
    constructor(props) {
     super(props);
     this.state = {
       togglestate: true,
+      showingPlaces:[],
+      query: '',
       locations: [{
               id: 1,
               name: "Cairo",
@@ -91,19 +95,67 @@ class App extends Component {
     ],
     }
     this.togglestate = this.togglestate.bind(this);
+    this.updateQuery = this.updateQuery.bind(this);
+    this.clearQuery = this.clearQuery.bind(this);
+    //this.filterQuery= this.filterQuery.bind(this);
   }
+// mount function
+componentWillMount=()=>{
+}
 
-  togglestate(event) {
+     
+   
+
+  togglestate=(event)=> {
     this.setState((prevState) => ({
       togglestate: !prevState.togglestate
     }));
   }
-  //
+  //fetch foursquare 
+  /*getFsquareData = (query)=>{
+
+      const endPoint= "https://api.foursquare.com/v2/venues/explore?";
+ 
+      const params= {
+        client_id: 'UCBUBFADHBK55015FZAGFQQVQRIVKVZ21HYB3YZF2EYUZ40M',
+        client_secret: '1DSFNBLOZ2ZSLAFWB00HBZ014PIERWNBRLL3L2UC1XTH2BZN',
+        ll: '40.7243,-74.0018',
+        query: query,
+        v: '20180323',
+      }
+      Axios.get(endPoint + new URLSearchParams(params).then(response=>{
+        this.setState({
+        response:   
+        })
+      }))
+      
+      
+       console.log(response)
+    }
+*/
+  // add an update state function
+updateQuery = (query)=>{
+  this.setState({query: query})
+}
+// add areset function
+clearQuery = ()=>{
+  this.setState({query: '' })
+}
 
 
      
 
   render() {
+    // fiter function
+
+  if(this.state.query){
+    const match = new RegExp(escapeRegExp(this.state.query), 'i')
+    this.state.showingPlaces = this.state.locations.filter((place)=> match.test(place.name))
+}else{
+    this.state.showingPlaces = this.state.locations
+}
+this.state.showingPlaces.sort(sortBy('name'))
+
     return (
       <View style={styles.app}>
       
@@ -112,8 +164,8 @@ class App extends Component {
         >
         <h1 
         tabindex="0" 
-        className={this.state.togglestate ? 'static-logo' : 'static-logo animated jello'} 
-            alt="logo"
+        className={this.state.togglestate ? '' : 'animated jello'} 
+            alt="app name"
             onMouseEnter={this.togglestate}
             onMouseLeave={this.togglestate}
         
@@ -127,12 +179,20 @@ class App extends Component {
             <Menu 
             locations={this.state.locations}
             toggleColor={this.state.togglestate}
+            query={this.state.query}
+            updateQuery={this.updateQuery}
+            clearQuery={this.clearQuery}
+            showingPlaces={this.state.showingPlaces}
+            filterQuery={this.filterQuery}
             />
           </View>
           <View style={styles.mapcontainer}>
             <MapContainer 
             locations={this.state.locations}
-          
+            query={this.state.query}
+            updateQuery={this.updateQuery}
+            clearQuery={this.clearQuery}
+            showingPlaces={this.state.showingPlaces}
             />
           </View>
         </View>
@@ -162,7 +222,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row"
   },
-  menu: {
+  menu : {
     flex: 2,
     backgroundColor: "#2e3d49",
     

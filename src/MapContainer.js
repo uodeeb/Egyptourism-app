@@ -64,7 +64,9 @@ export class MapContainer extends React.Component {
   render() {
 
 const {locations}=this.props
+let {showingPlaces}=this.props
 const {markerLoc, activeMarker}=this.state
+
     return (
       
       <Map google={this.props.google}
@@ -74,48 +76,37 @@ const {markerLoc, activeMarker}=this.state
           zoom={5}
            
           >
-         {locations.map((location)=>(
+         {showingPlaces.map((place)=>(
           <Marker 
-  
           className="marker"
-          name={location.name}
-          position={location.position}
-          title={location.title}
+          name={place.name}
+          position={place.position}
+          title={place.title}
           animation= {this.props.google.maps.Animation.DROP}
          description=
          {
-          "Country: " + location.description.Country+", Governorate: "+ 
-        location.description.Governorate +", Population: "+
-        location.description.Population +", Elevation: "+
-        location.description.Elevation +", TimeZone: "+
-        location.description.TimeZone +", Longitude: "+
-        location.description.Longitude +", Latitude: "+
-        location.description.Latitude +", Airport: "+
-        location.description.Airport 
+          "Country: " + place.description.Country+", Governorate: "+ 
+        place.description.Governorate +", Population: "+
+        place.description.Population +", Elevation: "+
+        place.description.Elevation +", TimeZone: "+
+        place.description.TimeZone +", Longitude: "+
+        place.description.Longitude +", Latitude: "+
+        place.description.Latitude +", Airport: "+
+        place.description.Airport 
         }
-          onClick={this.onMarkerClick}
-          
-          
-          
-            />
-          
-         ))}
-          
-          
-        
-             
+          onClick={this.onMarkerClick}  
+            /> 
+         ))}      
+
         <InfoWindow
 
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}>
             <div>
               <h2>{this.state.selectedPlace.name}</h2>
-             
-              <p  style={{fontSize: '1.5em', lineHeight: 1.5, padding:5 ,maxWidth:"200px",
+              <p  style={{fontSize: '1em', lineHeight: 1.35, padding:5 ,maxWidth:"200px",
               wordWrap:"break-word"}}>
               {this.state.selectedPlace.description
-
-              
               }
               </p>
             </div>
