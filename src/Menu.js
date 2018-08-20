@@ -85,7 +85,10 @@ showingPlaces.sort(sortBy('name'))
                                   className="clicked-place"
                                   style={{fontSize: "1em"}}
                                 >
-                                <h3>Territory: {venue.venue.location.city}</h3>
+                                <div style={{backgroundColor:"#1c262f" ,  borderRadius: 7}}>
+                                <h3 >Territory: {venue.venue.location.city}</h3>
+                                </div>
+                                <div style={{backgroundImage: `${venue.venue.location}`}}></div>
                                 Location: {venue.venue.name}
                                     <i
                                       key={venue.venue.name}

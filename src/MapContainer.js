@@ -39,7 +39,7 @@ export class MapContainer extends React.Component {
   render() {
 
 const {locations}=this.props
-let {showingPlaces}=this.props
+let {showingPlaces, data}=this.props
 const {markerLoc, activeMarker}=this.state
 
     return (
@@ -73,7 +73,17 @@ const {markerLoc, activeMarker}=this.state
           onClick={this.onMarkerClick}  
             /> 
          ))}      
-
+        {
+          data.map((venue)=> ( 
+            <Marker 
+            key={venue.venue.id}
+            className="marker"
+            name={venue.venue.name}
+            position={venue.venue.location.lat + venue.venue.location.lng}
+            title={venue.venue.location.country}
+          animation= {this.props.google.maps.Animation.DROP}
+            />
+          ))}
         <InfoWindow
 
           marker={this.state.activeMarker}

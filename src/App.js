@@ -245,6 +245,7 @@ this.state.showingPlaces.sort(sortBy('name'))
             updateQuery={this.updateQuery}
             clearQuery={this.clearQuery}
             showingPlaces={this.state.showingPlaces}
+            data={data}
             />
           </View>
         </View>
