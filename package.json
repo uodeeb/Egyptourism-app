@@ -5,6 +5,7 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "autoresponsive-react-native": "^1.0.9",
     "axios": "^0.18.0",
     "escape-string-regexp": "^1.0.5",
     "google-maps-react": "2.0.2",

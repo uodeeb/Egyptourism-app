@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Map, InfoWindow, Marker, GoogleApiWrapper, Animation, Icon} from "google-maps-react";
+import { Map, InfoWindow, Marker, GoogleApiWrapper} from "google-maps-react";
 
 
 export class MapContainer extends React.Component {
@@ -35,17 +35,20 @@ export class MapContainer extends React.Component {
     }
   };
 
- 
-  render() {
 
-const {locations}=this.props
-let {showingPlaces, data}=this.props
-const {markerLoc, activeMarker}=this.state
+  render() {
+    
+
+let {showingPlaces}=this.props
+
 
     return (
+      <div title="egypt cities map">
       
-      <Map google={this.props.google}
-      geocoder={this.props.geocoder}
+      <Map 
+      google={this.props.google}
+    
+      title="search city location"
           onClick={this.onMapClicked}
           initialCenter={{lat:30.06263, lng:31.24967 }}
           zoom={5}
@@ -58,6 +61,7 @@ const {markerLoc, activeMarker}=this.state
           name={place.name}
           position={place.position}
           title={place.title}
+          
           animation= {this.props.google.maps.Animation.DROP}
          description=
          {
@@ -71,19 +75,9 @@ const {markerLoc, activeMarker}=this.state
         place.description.Airport 
         }
           onClick={this.onMarkerClick}  
-            /> 
+            />  
          ))}      
-        {
-          data.map((venue)=> ( 
-            <Marker 
-            key={venue.venue.id}
-            className="marker"
-            name={venue.venue.name}
-            position={venue.venue.location.lat + venue.venue.location.lng}
-            title={venue.venue.location.country}
-          animation= {this.props.google.maps.Animation.DROP}
-            />
-          ))}
+        
         <InfoWindow
 
           marker={this.state.activeMarker}
@@ -98,9 +92,10 @@ const {markerLoc, activeMarker}=this.state
             </div>
             
         </InfoWindow>
-
+       
       </Map>
       
+      </div> 
     );
    
   }

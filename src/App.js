@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import {  StyleSheet, View } from "react-native";
 import Header from "./Header";
 import Menu from "./Menu";
@@ -93,6 +94,111 @@ class App extends Component {
                     Latitude:	24.090820,
                     Airport:	"Aswan International Airport",}
                   
+                },{
+                  id:6,
+                  name: "Al Fayyūm",
+                 title: "Al Fayum is a city found in Muhafazat al Fayyum, Egypt", 
+              position: {lat:29.30995, lng:30.8418},
+           description: {
+           Country:	"Egypt",
+           Governorate: "Al Fayyūm" ,
+            Population: "306,393",
+             Elevation: "29 m over sea level",
+           TimeZone:	"EEST",
+             Longitude: 30.8418,
+              Latitude: 29.30995,
+               Airport: "Cairo International Airport",
+                      }
+                },{
+                  id:7,
+                  name: "Al Minya",
+                 title: "Al Minya is a city found in Al Minya, Egypt", 
+              position: {lat:28.109880, lng:30.750300},
+           description: {
+           Country:	"Egypt",
+           Governorate:"Al Minya" ,
+            Population: "227,150",
+             Elevation: "	49 m over sea level",
+           TimeZone:	"EEST",
+             Longitude: 30.750300,
+              Latitude: 28.109880,
+               Airport: "El Minya Airport (EMY)",
+                      }
+                },{
+                  id:8,
+                  name: "Asyut",
+                 title: "Asyut is a city found in Asyut, Egypt", 
+              position: {lat: 27.180960, lng:31.183680},
+           description: {
+           Country:	"Egypt",
+           Governorate: "Asyut",
+            Population: "420,585",
+             Elevation: "	56 m over sea level",
+           TimeZone:	"EEST",
+             Longitude: 31.183680,
+              Latitude: 27.180960,
+               Airport: "Assiut Airport (ATZ)",
+                      }
+                },{
+                  id:9,
+                  name: "Suez",
+                 title: "Suez is a city found in Al Suways, Egypt", 
+              position: {lat: 29.973710,lng:32.526270 },
+           description: {
+           Country:	"Egypt",
+           Governorate: "	Al Suways",
+            Population: "488,125",
+             Elevation: "11 m over sea level",
+           TimeZone:	"EEST",
+             Longitude: 32.526270,
+              Latitude: 29.973710,
+               Airport: "Port Said Airport (PSD)",
+                      }
+                },{
+                  id:10,
+                  name: "	Luxor",
+                  title: "Luxor is a city found in Luxor, Egypt", 
+               position: {lat:25.698930 ,lng:32.642100 },
+            description: {
+            Country:	"Egypt",
+            Governorate: "	Luxor",
+             Population: "422,407",
+              Elevation: "89 m over sea level",
+            TimeZone:	"EEST",
+              Longitude: 32.642100,
+               Latitude: 25.698930,
+                Airport: "Luxor Airport (LXR)",
+                      }
+                },{
+                  id:11,
+                  name: "Marsa Matruh",
+                  title: "Marsa Matruh is a city found in Muhafazat Matruh, Egypt", 
+               position: {lat:31.352900 ,lng:27.237250 },
+            description: {
+            Country:	"Egypt",
+            Governorate: "Muhafazat Matruh",
+             Population: "62,042",
+              Elevation: "7 m over sea level",
+            TimeZone:	"EEST",
+              Longitude:27.237250 ,
+               Latitude: 31.352900,
+                Airport: "Marsa Matruh Airport (MUH)",
+                      }
+                },{
+                  id:12,
+                  name: "Al Mansurah",
+                  title: "Al Mansurah is a city found in Muhafazat ad Daqahliyah, Egypt", 
+               position: {lat: 31.036370,lng:31.380690 },
+            description: {
+            Country:	"Egypt",
+            Governorate: "Muhafazat ad Daqahliyah",
+             Population: "	420,195",
+              Elevation: "15 m over sea level",
+            TimeZone:	"EEST",
+              Longitude:31.380690 ,
+               Latitude: 31.036370,
+                Airport: "Cairo International Airport",
+                      }
                 }
     ],
     }
@@ -134,11 +240,11 @@ this.setState({
         client_secret: '1DSFNBLOZ2ZSLAFWB00HBZ014PIERWNBRLL3L2UC1XTH2BZN',
         ll: '30.06263,31.24967',
         query: query,
-        near: query,
+        near: `${query}`,
         //intent: 'match',
         v: '20180323',
         limit: 10,
-        section: 'outdoors'
+        section: 'food'
       }
       Axios.get(endPoint+ new URLSearchParams(params)).then(response=>{
         this.setState({data: response.data.response.groups[0].items})
@@ -212,7 +318,7 @@ this.state.showingPlaces.sort(sortBy('name'))
         
         >
         <h1 
-        style={{color: "#fff" }}
+        style={{color: "#fff", marginBottom: 0 }}
         tabIndex="0" 
         className={this.state.togglestate ? '' : 'animated jello'} 
             alt="app name"
@@ -225,6 +331,7 @@ this.state.showingPlaces.sort(sortBy('name'))
         <View style={styles.main}>
           <View style={styles.menu}>
             <Menu 
+            className="menu-bar"
             locations={this.state.locations}
             addAimation={this.state.togglestate}
             query={this.state.query}
@@ -235,7 +342,7 @@ this.state.showingPlaces.sort(sortBy('name'))
             getFsquareData={this.getFsquareData}
             data={data}
             changeQuery={this.changeQuery}
-
+            title="city list"
             />
           </View>
           <View style={styles.mapcontainer}>
@@ -264,7 +371,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   header: {
-    height: "25%",
+    height: "20%",
     width: "100%",
     alignItems: "center",
     backgroundColor: "#1c262f",
@@ -274,11 +381,13 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     flexDirection: "row"
-  },
+    //@media and screen (min-width: 360px){}
+ },
   menu : {
     flex: 2,
     backgroundColor: "#2e3d49",
     overflow: "scroll",
+    
   
   },
   mapcontainer: {
