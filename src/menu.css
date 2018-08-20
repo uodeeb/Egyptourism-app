@@ -17,6 +17,11 @@
     .unclicked-place{
         color: #fff;
     }
+    .menu-bar{
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        
+    }
+   
     /*_______________________small mobs_________________________*/
 @media screen and (min-width: 360px){
     

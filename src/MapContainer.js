@@ -51,7 +51,7 @@ let {showingPlaces}=this.props
       title="search city location"
           onClick={this.onMapClicked}
           initialCenter={{lat:30.06263, lng:31.24967 }}
-          zoom={5}
+          zoom={7}
            
           >
          {showingPlaces.map((place)=>(

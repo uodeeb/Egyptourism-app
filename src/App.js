@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-
-import {  StyleSheet, View } from "react-native";
+import app from "./app.css"
+import {  StyleSheet, View, ScrollView } from "react-native";
 import Header from "./Header";
 import Menu from "./Menu";
 import Footer from "./Footer";
@@ -313,14 +313,14 @@ this.state.showingPlaces.sort(sortBy('name'))
 
     return (
       <View style={styles.app}>
-      
+  
         <View style={styles.header}
         
         >
         <h1 
         style={{color: "#fff", marginBottom: 0 }}
         tabIndex="0" 
-        className={this.state.togglestate ? '' : 'animated jello'} 
+        className={this.state.togglestate ? 'head' : 'animated jello'} 
             alt="app name"
             onMouseEnter={this.togglestate}
             onMouseLeave={this.togglestate}
@@ -328,7 +328,9 @@ this.state.showingPlaces.sort(sortBy('name'))
         >Egyptourism</h1>
           <Header />
         </View>
-        <View style={styles.main}>
+        <View style={styles.main}
+        className="main"
+        >
           <View style={styles.menu}>
             <Menu 
             className="menu-bar"
@@ -347,6 +349,7 @@ this.state.showingPlaces.sort(sortBy('name'))
           </View>
           <View style={styles.mapcontainer}>
             <MapContainer 
+            className="map"
             locations={this.state.locations}
             query={this.state.query}
             updateQuery={this.updateQuery}
@@ -357,7 +360,9 @@ this.state.showingPlaces.sort(sortBy('name'))
           </View>
         </View>
         <View style={styles.footer}>
-<Footer />
+        <Footer 
+       className="footer" 
+        />
         </View>
       </View>
     );
@@ -371,11 +376,12 @@ const styles = StyleSheet.create({
     flex: 1
   },
   header: {
-    height: "20%",
+    height: "17%",
     width: "100%",
     alignItems: "center",
     backgroundColor: "#1c262f",
-    //color: "#fff",
+    
+   
     
   },
   main: {
@@ -384,14 +390,14 @@ const styles = StyleSheet.create({
     //@media and screen (min-width: 360px){}
  },
   menu : {
-    flex: 2,
+    flex: 4,
     backgroundColor: "#2e3d49",
     overflow: "scroll",
     
   
   },
   mapcontainer: {
-    flex: 5,
+    flex: 6,
     backgroundColor: "#ddf0f0" ,
     
 
