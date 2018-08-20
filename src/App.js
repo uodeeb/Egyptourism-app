@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Image, StyleSheet, Text, View } from "react-native";
+import {  StyleSheet, View } from "react-native";
 import Header from "./Header";
 import Menu from "./Menu";
 import Footer from "./Footer";
@@ -7,6 +7,7 @@ import MapContainer from "./MapContainer";
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import Axios from 'axios'
+
 class App extends Component {
    // constructor
    constructor(props) {
@@ -15,6 +16,7 @@ class App extends Component {
       togglestate: true,
       showingPlaces:[],
       query: '',
+   data: [],
       locations: [{
               id: 1,
               name: "Cairo",
@@ -97,14 +99,20 @@ class App extends Component {
     this.togglestate = this.togglestate.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
     this.clearQuery = this.clearQuery.bind(this);
-    this.getFsquareData= this.getFsquareData.bind(this);
+    //this.getFsquareData= this.getFsquareData.bind(this);
+    //this.fetchData= this.fetchData.bind(this);
   }
 // mount function
-componentWillMount=()=>{
-  this.getFsquareData()
+componentDidMount=()=>{
+  this.getFsquareData();
+//this.fetchData()
 }
-
-     
+// set api data to our state
+/*fetchData = (apiData, data) => 
+this.setState({
+  data: apiData
+}, console.log(data))
+  */   
    
 
   togglestate=(event)=> {
@@ -112,32 +120,56 @@ componentWillMount=()=>{
       togglestate: !prevState.togglestate
     }));
   }
+
+ 
   //fetch foursquare 
   getFsquareData = (query)=>{
-
-      const endPoint= "https://api.foursquare.com/v2/venues/explore?";
- 
+    this.setState({
+      data: []
+    })
+      
+ const endPoint="https://api.foursquare.com/v2/venues/explore?"
       const params= {
         client_id: 'UCBUBFADHBK55015FZAGFQQVQRIVKVZ21HYB3YZF2EYUZ40M',
         client_secret: '1DSFNBLOZ2ZSLAFWB00HBZ014PIERWNBRLL3L2UC1XTH2BZN',
-        ll: '40.7243,-74.0018',
+        ll: '30.06263,31.24967',
         query: query,
+        near: query,
+        //intent: 'match',
         v: '20180323',
+        limit: 10,
+        section: 'outdoors'
       }
-      fetch(`https://api.foursquare.com/v2/venues/explore?client_id=${params.client_id}&client_secret=${params.client_secret}&v=${params.v}&limit=1&ll=${params.ll}&query=${params.query}`)
-    .then(function(response) {
-        // Code for handling API response
+      Axios.get(endPoint+ new URLSearchParams(params)).then(response=>{
+        this.setState({data: response.data.response.groups[0].items})
         console.log(response)
-    })
-    .catch(function() {
-        // Code for handling errors
-    });
-      /*Axios.get(endPoint + new URLSearchParams(params).then(response=>{
-        this.setState({
-        response:   
-        })*/
-      }//))
+      })
+ /*fetch(`client_id=${params.client_id}&client_secret=${params.client_secret}&v=${params.v}&limit=1&ll=${params.ll}&query=${params.query}`)
+        .then(response => response.json())
+
+        .then(parsedJSON =>console.log(parsedJSON.response)
+           
+           /*.map(location=>(
+         
+          {
+            locationPrefix: `${location.prefix}`,
+            locationSuffix: `${location.suffix}`
+           
+        }
+        ))
+      )
       
+        .then(data => this.setState({
+          data,
+        }))
+        .catch((error) =>{
+        // Code for handling errors
+        console.log("this is not cool, api not responding", error)
+
+    });*/
+     
+      }
+     
       
      
     
@@ -151,12 +183,20 @@ clearQuery = ()=>{
   this.setState({query: '' })
 }
 
-
-     
+// store the places
+/*componentWillUpdate(nextProp, nextState){
+  localStorage.setItem('data', JSON.stringify(nextState.data));
+}*/
+// change the query function
+changeQuery = (event)=>{
+this.setState({
+  query: event.target.value
+})
+}
 
   render() {
-    // fiter function
-
+    // filter function
+const {data}= this.state
   if(this.state.query){
     const match = new RegExp(escapeRegExp(this.state.query), 'i')
     this.state.showingPlaces = this.state.locations.filter((place)=> match.test(place.name))
@@ -172,27 +212,30 @@ this.state.showingPlaces.sort(sortBy('name'))
         
         >
         <h1 
-        tabindex="0" 
+        style={{color: "#fff" }}
+        tabIndex="0" 
         className={this.state.togglestate ? '' : 'animated jello'} 
             alt="app name"
             onMouseEnter={this.togglestate}
             onMouseLeave={this.togglestate}
         
-        >Neighbourhood App</h1>
-          <Header 
-         
-          />
+        >Egyptourism</h1>
+          <Header />
         </View>
         <View style={styles.main}>
           <View style={styles.menu}>
             <Menu 
             locations={this.state.locations}
-            toggleColor={this.state.togglestate}
+            addAimation={this.state.togglestate}
             query={this.state.query}
             updateQuery={this.updateQuery}
             clearQuery={this.clearQuery}
             showingPlaces={this.state.showingPlaces}
             filterQuery={this.filterQuery}
+            getFsquareData={this.getFsquareData}
+            data={data}
+            changeQuery={this.changeQuery}
+
             />
           </View>
           <View style={styles.mapcontainer}>
@@ -220,11 +263,11 @@ const styles = StyleSheet.create({
     flex: 1
   },
   header: {
-    height: "15%",
+    height: "25%",
     width: "100%",
     alignItems: "center",
     backgroundColor: "#1c262f",
-    color: "#fff",
+    //color: "#fff",
     
   },
   main: {
@@ -234,20 +277,20 @@ const styles = StyleSheet.create({
   menu : {
     flex: 2,
     backgroundColor: "#2e3d49",
-    
+    overflow: "scroll",
   
   },
   mapcontainer: {
     flex: 5,
     backgroundColor: "#ddf0f0" ,
-    webkitBoxShadow: "-4px -4px 29px 0px rgba(0,0,0,0.75)",
-    mozBoxShadow: "-4px -4px 29px 0px rgba(0,0,0,0.75)",
+    
+
     boxShadow: "-4px -4px 29px 0px rgba(0,0,0,0.75)"
   },
   footer: {
     height: "10%",
     backgroundColor: "#1c262f",
-    color: '#fff',
+    //color: "#fff",
     alignItems: "center",
   },
  

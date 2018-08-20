@@ -1,6 +1,5 @@
 import React from "react";
-import { Button, Image, StyleSheet, Text, View } from "react-native";
-import Geocoder from 'react-native-geocoding';
+
 import { Map, InfoWindow, Marker, GoogleApiWrapper, Animation, Icon} from "google-maps-react";
 
 
@@ -35,31 +34,7 @@ export class MapContainer extends React.Component {
       })
     }
   };
-  // geocoder function
-  getGeoData = () =>{
-    Geocoder.init('AIzaSyA6r-0uKAveD9h5h16UOg_et35IXO2XW2A');
-    Geocoder.from()
-		.then(json => {
-			var location = json.results[0].geometry.location;
-			console.log(location);
-		})
-		.catch(error => console.warn(error));
-  }
-  /*onPlaceClicked = (props) =>{
-    let address = document.getElementById('neighborhoods-select').children.value
-    geocoder.geocode(
-      { address: address,
-        componentRestrictions: {locality: 'New York'}
-      }, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          map.setCenter(results[0].geometry.location);
-          map.setZoom(15);
-        } else {
-          window.alert('We could not find that location - try entering a more' +
-              ' specific place.');
-        }
-      });
-  }*/
+
  
   render() {
 
@@ -78,6 +53,7 @@ const {markerLoc, activeMarker}=this.state
           >
          {showingPlaces.map((place)=>(
           <Marker 
+          key={place.id}
           className="marker"
           name={place.name}
           position={place.position}
