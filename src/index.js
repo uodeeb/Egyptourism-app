@@ -7,4 +7,7 @@ AppRegistry.registerComponent("App", () => App);
 AppRegistry.runApplication("App", {
   rootTag: document.getElementById("root")
 });
-registerServiceWorker();
+/*____________________ add service worker function ___________________*/
+
+navigator.serviceWorker
+.register('./registerServiceWorker.js');

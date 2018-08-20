@@ -1,6 +1,6 @@
 import React from "react";
 import {StyleSheet, View } from "react-native";
-import menu from "./menu.css"
+import  "./menu.css"
 
 class Menu extends React.Component {
   render() {

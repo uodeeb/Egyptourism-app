@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-import app from "./app.css"
-import {  StyleSheet, View, ScrollView } from "react-native"
+import "./app.css"
+import {  StyleSheet, View } from "react-native"
 import Header from "./Header"
 import Menu from "./Menu"
 import Footer from "./Footer"
@@ -201,7 +201,13 @@ componentDidMount=()=>{
     this.getFsquareData();
 
 }
-
+// store the date 
+componentWillMount() {
+  localStorage.getItem('data') && this.setState({
+      data: JSON.parse(localStorage.getItem('data')),
+    
+  })
+}
 
 togglestate=(event)=> {
     this.setState((prevState) => ({
@@ -222,7 +228,7 @@ getFsquareData = (query)=>{
               client_secret: '1DSFNBLOZ2ZSLAFWB00HBZ014PIERWNBRLL3L2UC1XTH2BZN',
               ll: '30.06263,31.24967',
               query: query,
-              near: `${query}`, 
+              near: query,//`${query}`, 
               v: '20180323',
               limit: 10,
               section: 'food'
@@ -359,14 +365,14 @@ const styles = StyleSheet.create({
 });
 // add proptype 
 App.propTypes = {
-  togglestate: PropTypes.bool.isRequired,
-  showingPlaces: PropTypes.array.isRequired,
-  query: PropTypes.string.isRequired,
-  data: PropTypes.array.isRequired,
-  locations:PropTypes.array.isRequired,
-  updateQuery : PropTypes.func.isRequired,
-  clearQuery: PropTypes.func.isRequired,
-  getFsquareData: PropTypes.func.isRequired,
-  togglestate: PropTypes.func.isRequired,
+  togglestate: PropTypes.bool,
+  showingPlaces: PropTypes.array,
+  query: PropTypes.string,
+  data: PropTypes.array,
+  locations:PropTypes.array,
+  updateQuery : PropTypes.func,
+  clearQuery: PropTypes.func,
+  getFsquareData: PropTypes.func,
+  
 };
 export default App;
