@@ -35,7 +35,7 @@ build react bundle from scratch
 1)>> npm install -g create-react-app
 	> create your app
 2)>> create-react-app <app-name>
-> go to created app folder
+    > go to created app folder
 3)>> cd <app-name>
 	> install npm modules
 4)>> npm install 
@@ -43,27 +43,25 @@ build react bundle from scratch
 5)>> npm run start
 
 Note: to run a backend server, open a new terminal >>> run 
-	>> node server.js
-
+	
+    >> node server.js
 
 Install npm packages you need to develop react app
 
 	> install Prop-types
 1)>> npm install --save prop-types
-> install escape-string-regexp
+    > install escape-string-regexp
 2)>> npm install --save escape-string-regexp
 	> install sort-by
 3)>> npm install --save sort-by
-> install react-router-dom
+    > install react-router-dom
 4)>> npm install --save react-router-dom
 	> install react-router
 5)>> npm install --save react-router
 
 Note: to run all at once
+
 >> npm install --save prop-types escape-string-regexp sort-by react-router-dom react-router
-
-
-
 ``` 
 
 ## User Instruction
