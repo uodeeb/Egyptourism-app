@@ -289,6 +289,7 @@ render() {
                   >
                   <View style={styles.menu}>
                           <Menu 
+                              tabIndex="1" 
                               className="menu-bar"
                               locations={this.state.locations}
                               addAimation={this.state.togglestate}
@@ -305,6 +306,7 @@ render() {
                   </View>
                   <View style={styles.mapcontainer}>
                           <MapContainer 
+                          
                           className="map"
                           locations={this.state.locations}
                           query={this.state.query}

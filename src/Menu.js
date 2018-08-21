@@ -20,6 +20,7 @@ class Menu extends React.Component {
                               >
                               <input 
                                   className="search-locations"
+                                  tabIndex="0"
                                   type="search" aria-label="search text" 
                                   placeholder="Search a Place"
                                   value={this.props.query}
@@ -39,13 +40,14 @@ class Menu extends React.Component {
                             </div>
                             <ol className="places-list"
                                 style={{color: "#fff"}}
-                                tabIndex="0"
+                                
                                 role="listbox"
                                >
                              {
                                 showingPlaces.map((place)=>(
                                 <li 
                                     key={place.name}
+                                    tabIndex="0"
                                     style={{fontSize: '1.35em', lineHeight: 1.3, padding:5, cursor: "pointer"}}
                                     className={this.addAnimation ? 'place' : 'animated shake'}
                                     onClick={()=> updateQuery(place.name) }
@@ -61,13 +63,17 @@ class Menu extends React.Component {
                               {data.map(venue =>{
                                   return <li 
                                       key={venue.venue.name}
+                                      
                                       className="clicked-place"
                                       style={{fontSize: "1em"}}
                                       role="option"
                                       aria-selected="false"
                                     >
-                                            <div style={{COLOR: "#FFF" ,backgroundColor:"#1c262f" ,  borderRadius: 7}}>
-                                                <h3 >Territory: {venue.venue.location.city}</h3>
+                                            <div 
+                                            style={{COLOR: "#FFF" ,backgroundColor:"#1c262f" ,  borderRadius: 7}}
+                                            
+                                            >
+                                                <h3 tabIndex="3">Territory: {venue.venue.location.city}</h3>
                                             </div>
                                                 Location: {venue.venue.name}
                                                 <i
@@ -95,7 +101,7 @@ class Menu extends React.Component {
                                           </li>
                                         
                                     })}
-                                    <p style={{color: "#fff"}}>This data is generated from <a href="https://foursquare.com/">FourSquare</a> API in realtime</p>
+                                    <p style={{color: "#fff"}}>This data is generated from <a  tabIndex="6" href="https://foursquare.com/">FourSquare</a> API in realtime</p>
                               </ul>
               </View>
 

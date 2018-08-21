@@ -34,9 +34,13 @@ render() {
   let {showingPlaces}=this.props
 
       return (
-      <div title="egypt cities map">
+      <div 
+      title="egypt cities map"
+      tabIndex="-1"
+      >
       
           <Map 
+              tabIndex="2"
               google={this.props.google}
               title="search city location"
               onClick={this.onMapClicked}
@@ -46,6 +50,7 @@ render() {
       
          {showingPlaces.map((place)=>(
                   <Marker 
+                  tabIndex="0"
                   key={place.id}
                   className="marker"
                   name={place.name}
