@@ -201,14 +201,12 @@ componentDidMount=()=>{
     this.getFsquareData();
 
 }
-// store the date 
-componentWillMount() {
-  localStorage.getItem('data') && this.setState({
-      data: JSON.parse(localStorage.getItem('data')),
-    
-  })
-}
 
+//update the storage
+componentWillUpdate(nextProps, nextState) {
+  localStorage.setItem('data', JSON.stringify(nextState.data))
+  
+}
 togglestate=(event)=> {
     this.setState((prevState) => ({
       togglestate: !prevState.togglestate
@@ -228,7 +226,7 @@ getFsquareData = (query)=>{
               client_secret: '1DSFNBLOZ2ZSLAFWB00HBZ014PIERWNBRLL3L2UC1XTH2BZN',
               ll: '30.06263,31.24967',
               query: query,
-              near: query,//`${query}`, 
+              near: `${query},EG`, 
               v: '20180323',
               limit: 10,
               section: 'food'

@@ -31,15 +31,25 @@ Egyptourism is an application used for getting updated data about best places to
 * To run the project locally use following commands
 ``` 
 build react bundle from scratch
-	> install create-react-app globally
+
+	- > install create-react-app globally
+
 1)>> npm install -g create-react-app
-	> create your app
+
+	- > create your app
+
 2)>> create-react-app <app-name>
-    > go to created app folder
+
+    - > go to created app folder
+
 3)>> cd <app-name>
-	> install npm modules
+
+	- > install npm modules
+
 4)>> npm install 
-	> run your app server
+
+	- > run your app server
+
 5)>> npm run start
 
 Note: to run a backend server, open a new terminal >>> run 
@@ -48,20 +58,30 @@ Note: to run a backend server, open a new terminal >>> run
 
 Install npm packages you need to develop react app
 
-	> install Prop-types
+	- > install Prop-types
+
 1)>> npm install --save prop-types
-    > install escape-string-regexp
+
+    - > install escape-string-regexp
+
 2)>> npm install --save escape-string-regexp
-	> install sort-by
+	
+    - > install sort-by
+
 3)>> npm install --save sort-by
-    > install react-router-dom
+
+    - > install react-router-dom
+    
 4)>> npm install --save react-router-dom
-	> install react-router
+	
+    - > install react-router
+
 5)>> npm install --save react-router
 
 Note: to run all at once
 
 >> npm install --save prop-types escape-string-regexp sort-by react-router-dom react-router
+
 ``` 
 
 ## User Instruction
@@ -99,7 +119,7 @@ Note: to run all at once
 
 *   This project is using [React Native Web](https://github.com/necolas/react-native-web) as a base for responsive app build.
 
-* The project is forked mainly as an empty template form [codesandbox](https://codesandbox.io/)
+* The project is forked mainly as an empty template from [codesandbox](https://codesandbox.io/)
 
 ## Contributing
 
@@ -109,7 +129,7 @@ For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Authors
 
-*   This project is developed by [Mohammad Allam](https://www.facebook.com/uodeeb) from scratch
+*   This project is developed by [Mohammad Allam](https://www.linkedin.com/in/mohammadallammemix/)
 
 ## Acknowledgments
 

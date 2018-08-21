@@ -127,14 +127,14 @@ let cacheFiles = [
 	'',
 '/',
 'public/index.html',
-'/App.js',
-'/Menu.js',
-'/Footer.js',
-'/Header.js',
-'/index.js',
-'/MapContainer.js',
-'/app.css',
-'/menu.css',
+'./App.js',
+'./Menu.js',
+'./Footer.js',
+'./Header.js',
+'./index.js',
+'./MapContainer.js',
+'./app.css',
+'./menu.css',
 
 ];
 

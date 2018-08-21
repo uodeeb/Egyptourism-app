@@ -1,6 +1,6 @@
 import React from "react";
 import {StyleSheet, View } from "react-native";
-import  "./menu.css"
+
 
 class Menu extends React.Component {
   render() {
@@ -60,7 +60,7 @@ class Menu extends React.Component {
                             <ul>
                               {data.map(venue =>{
                                   return <li 
-                                      key={venue.venue.id}
+                                      key={venue.venue.name}
                                       className="clicked-place"
                                       style={{fontSize: "1em"}}
                                       role="option"
