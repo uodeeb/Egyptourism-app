@@ -97,11 +97,11 @@ class Menu extends React.Component {
                                                 >
                                                 > Cross-street: {venue.venue.location.crossStreet}
                                                 </i>
-                                                
+                                                <p style={{color: "#00ffff"}}>This data is generated from <a  tabIndex="-1" style={{color: "#fff"}} href="https://foursquare.com/">FourSquare</a> API in realtime</p>
                                           </li>
                                         
                                     })}
-                                    <p style={{color: "#fff"}}>This data is generated from <a  tabIndex="6" href="https://foursquare.com/">FourSquare</a> API in realtime</p>
+                                   
                               </ul>
               </View>
 
