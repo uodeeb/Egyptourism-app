@@ -5,7 +5,7 @@ Egyptourism is an application used for getting updated data about the best place
 
 * [Getting Started](#Getting Started)
 * [User Instruction](#User Instruction)
-* [Dependacies](#Dependancies)
+* [Dependencies](#Dependencies)
 * [Resources](#Resources)
 * [Contributing](#contributing)
 * [Authors](#Authors)
@@ -88,7 +88,7 @@ Note: to run all at once
   
 * To use the app you can search from the cities list using English and Arabic, clicking the find button will initiate a search for restaurants and coffee shops found in this city.
 
-## Dependancies
+## Dependencies
 
 * The project uses these dependancies and packages
 
@@ -104,7 +104,7 @@ Note: to run all at once
 
     - [Code Sand Box](https://codesandbox.io/)
 
-    - [Ract PropTypes](https://www.npmjs.com/package/prop-types)
+    - [React PropTypes](https://www.npmjs.com/package/prop-types)
 
     - [SortBY](https://www.npmjs.com/package/sort-by)
 
