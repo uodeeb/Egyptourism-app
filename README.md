@@ -1,11 +1,11 @@
 # Egyptourism App
-Egyptourism is an application used for getting updated data about best places to find delicious food while visiting Egypt.
+Egyptourism is an application used for getting updated data about the best places to find delicious food while visiting Egypt.
 
 ## Table of Contents
 
 * [Getting Started](#Getting Started)
 * [User Instruction](#User Instruction)
-* [Dependacies](#Dependacies)
+* [Dependacies](#Dependancies)
 * [Resources](#Resources)
 * [Contributing](#contributing)
 * [Authors](#Authors)
@@ -40,7 +40,7 @@ build react bundle from scratch
 
 2)>> create-react-app <app-name>
 
-    - > go to created app folder
+    - > go to the created app folder
 
 3)>> cd <app-name>
 
@@ -86,11 +86,11 @@ Note: to run all at once
 
 ## User Instruction
   
-* To use the app you can search from the cities list using English and Arabic, clicking the find button will initiate a search for restaurants and coffeeshops found in this city.
+* To use the app you can search from the cities list using English and Arabic, clicking the find button will initiate a search for restaurants and coffee shops found in this city.
 
-## Dependacies
+## Dependancies
 
-* The project uses these dependacies and packages
+* The project uses these dependancies and packages
 
     - [Google Maps API](https://developers.google.com/maps/documentation)
 
