@@ -223,7 +223,7 @@ getFsquareData = (query)=>{
           const endPoint="https://api.foursquare.com/v2/venues/explore?"
           const params= {
               client_id: 'UCBUBFADHBK55015FZAGFQQVQRIVKVZ21HYB3YZF2EYUZ40M',
-              client_secret: '1DSFNBLOZ2ZSLAFWB00HBZ014PIERWNBRLL3L2UC1XTH2BZN',
+              client_secret: 'RCC5E5DHSIX0QVB55JEIVICSVN5QVSVINR51AYMXW5LGJCZC',
               ll: '30.06263,31.24967',
               query: query,
               near: `${query},EG`, 
