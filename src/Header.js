@@ -6,12 +6,14 @@ class Header extends React.Component {
     return (
      
       <div className="container" 
-          style={{}}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
          >
-              <p 
-              className="slogan"
-              style={{color: '#fff'}}
-              >Find Places To Hangout While Visiting Egypt</p>
+          <img src={require('./images/logo.png')} alt="logo" className="logo" height='120px' width='80px'/>
+
       </div>    
     );
   }
