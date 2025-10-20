@@ -290,17 +290,6 @@ class App extends Component {
     return (
       <View style={styles.app}>
         <View style={styles.header}>
-          <h1
-            style={{ color: "#f2a739", marginBottom: 0 }}
-            tabIndex="0"
-            className={this.state.togglestate ? "head" : "animated jello"}
-            alt="app name"
-            onMouseEnter={this.togglestate}
-            onMouseLeave={this.togglestate}
-          >
-            Egyptourism
-          </h1>
-
           <Header />
         </View>
         <View style={styles.main} className="main">
@@ -347,10 +336,9 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    height: "20%",
     width: "100%",
     alignItems: "center",
-    backgroundColor: "#10131c",
+    background: "linear-gradient(135deg, #006847 0%, #004D3D 100%)",
   },
 
   main: {
@@ -360,25 +348,26 @@ const styles = StyleSheet.create({
 
   menu: {
     flex: 4,
-    backgroundColor: "#2e3d49",
-    overflow: "scroll",
+    background: "linear-gradient(180deg, #004D3D 0%, #006847 100%)",
+    overflow: "auto",
     height: "100%",
-
-    scrollbarWidth: 'none'  /* Firefox */
+    scrollbarWidth: 'none',
+    borderRight: "1px solid rgba(245, 166, 35, 0.2)",
   },
 
   mapcontainer: {
     flex: 6,
-    backgroundColor: "#ddf0f0",
-    boxShadow: "-4px -4px 29px 0px rgba(0,0,0,0.75)",
+    backgroundColor: "#F5F2E8",
+    boxShadow: "-8px 0 32px rgba(0, 104, 71, 0.15)",
   },
 
   footer: {
-    height: "10%",
-    backgroundColor: "#1c262f",
+    padding: "20px",
+    background: "linear-gradient(135deg, #2C2C2C 0%, #1a1a1a 100%)",
     alignItems: "center",
-    fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
-    fontSize: "0.8em"
+    fontFamily: "'Inter', sans-serif",
+    fontSize: "0.85em",
+    borderTop: "2px solid #F5A623",
   },
 });
 // add proptype
