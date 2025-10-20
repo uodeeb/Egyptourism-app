@@ -36,7 +36,7 @@ class Footer extends React.Component {
           fontSize: "0.9rem",
           fontWeight: 500,
         }}>
-          © 2024 Egyptourism App
+          © 2018-2025 Egyptourism App
         </p>
 
         <p style={{
