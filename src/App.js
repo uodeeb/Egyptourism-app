@@ -235,12 +235,11 @@ class App extends Component {
     }));
   };
 
-  //fetch foursquare api function
   getFsquareData = (query) => {
     this.setState({
       data: [],
     });
-    //
+
     const endPoint = "https://api.foursquare.com/v2/venues/explore?";
     const params = {
       client_id: "UCBUBFADHBK55015FZAGFQQVQRIVKVZ21HYB3YZF2EYUZ40M",
@@ -252,14 +251,13 @@ class App extends Component {
       limit: 50,
       section: "food",
     };
-    // using axios to get the api data
+
     Axios.get(endPoint + new URLSearchParams(params))
       .then((response) => {
         console.log(response)
         this.setState({ data: response.data.response.groups[0].items });
       })
       .catch((error) => {
-        // Code for handling errors
         console.log("this is not cool, api not responding", error);
       });
   };

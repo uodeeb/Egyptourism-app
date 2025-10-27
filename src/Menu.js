@@ -4,7 +4,18 @@ import { StyleSheet, View } from "react-native";
 class Menu extends React.Component {
   state = {
     hoveredPlace: null,
+    hoveredVenue: null,
   };
+
+  generateNavigationUrl = (lat, lng, name) => {
+    const encodedName = encodeURIComponent(name);
+    if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+      return `maps://maps.apple.com/?q=${encodedName}&ll=${lat},${lng}`;
+    } else if (/Android/.test(navigator.userAgent)) {
+      return `geo:${lat},${lng}?q=${lat},${lng}(${encodedName})`;
+    }
+    return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+  }
 
   render() {
     const { updateQuery } = this.props;
@@ -31,7 +42,7 @@ class Menu extends React.Component {
             margin: 0,
             opacity: 0.9,
           }}>
-            Find delicious food around Egypt
+            Explore places and navigate with ease
           </p>
         </div>
 
@@ -150,6 +161,9 @@ class Menu extends React.Component {
                   fontWeight: 500,
                   transition: "all 0.3s ease",
                   fontFamily: "'Inter', sans-serif",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
                 onClick={() => {
                   updateQuery(place.name);
@@ -160,7 +174,31 @@ class Menu extends React.Component {
                 onMouseLeave={() => this.setState({ hoveredPlace: null })}
                 role="option"
               >
-                {place.name}
+                <span>{place.name}</span>
+                <a
+                  href={this.generateNavigationUrl(place.position.lat, place.position.lng, place.name)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    padding: "6px 12px",
+                    background: "linear-gradient(135deg, #F5A623 0%, #D4774E 100%)",
+                    color: "#2C2C2C",
+                    textDecoration: "none",
+                    borderRadius: 4,
+                    fontSize: "0.75rem",
+                    fontWeight: 600,
+                    transition: "all 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = "scale(1.05)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = "scale(1)";
+                  }}
+                >
+                  Navigate
+                </a>
               </li>
             ))}
           </ul>
@@ -185,16 +223,18 @@ class Menu extends React.Component {
                     className="card-elevated"
                     style={{
                       fontSize: "0.85em",
-                      border: "1px solid rgba(245, 166, 35, 0.2)",
+                      border: this.state.hoveredVenue === venue.venue.id ? "1px solid #F5A623" : "1px solid rgba(245, 166, 35, 0.2)",
                       borderRadius: 12,
                       marginBottom: 16,
                       listStyleType: "none",
                       padding: 16,
-                      background: "rgba(245, 242, 232, 0.05)",
+                      background: this.state.hoveredVenue === venue.venue.id ? "rgba(245, 166, 35, 0.1)" : "rgba(245, 242, 232, 0.05)",
                       transition: "all 0.3s ease",
                     }}
                     role="option"
                     aria-selected="false"
+                    onMouseEnter={() => this.setState({ hoveredVenue: venue.venue.id })}
+                    onMouseLeave={() => this.setState({ hoveredVenue: null })}
                   >
                     <div
                       style={{
@@ -225,6 +265,7 @@ class Menu extends React.Component {
                         display: "flex",
                         gap: 12,
                         alignItems: "flex-start",
+                        marginBottom: 12,
                       }}
                     >
                       <div style={{ flex: "0 0 auto" }}>
@@ -254,14 +295,56 @@ class Menu extends React.Component {
                           {venue.venue.location.formattedAddress[0]}
                         </p>
                         <p style={{
-                          margin: 0,
+                          margin: "0 0 8px 0",
                           fontSize: "0.85rem",
                         }}>
                           <strong style={{ color: "#F5A623" }}>Category:</strong><br />
                           {venue.venue.categories[0].name}
                         </p>
+                        {venue.venue.location.distance && (
+                          <p style={{
+                            margin: 0,
+                            fontSize: "0.85rem",
+                          }}>
+                            <strong style={{ color: "#F5A623" }}>Distance:</strong><br />
+                            {(venue.venue.location.distance / 1000).toFixed(1)} km away
+                          </p>
+                        )}
                       </div>
                     </div>
+                    {venue.venue.location.lat && venue.venue.location.lng && (
+                      <a
+                        href={this.generateNavigationUrl(
+                          venue.venue.location.lat,
+                          venue.venue.location.lng,
+                          venue.venue.name
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: "block",
+                          padding: "10px 16px",
+                          background: "linear-gradient(135deg, #F5A623 0%, #D4774E 100%)",
+                          color: "#2C2C2C",
+                          textDecoration: "none",
+                          borderRadius: 6,
+                          fontWeight: 600,
+                          fontSize: "0.85rem",
+                          textAlign: "center",
+                          transition: "all 0.3s ease",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.transform = "translateY(-2px)";
+                          e.target.style.boxShadow = "0 4px 12px rgba(245, 166, 35, 0.4)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.transform = "translateY(0)";
+                          e.target.style.boxShadow = "none";
+                        }}
+                      >
+                        Navigate to {venue.venue.name}
+                      </a>
+                    )}
                   </li>
                 );
               })}

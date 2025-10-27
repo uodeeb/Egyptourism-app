@@ -1,168 +1,131 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { Map, InfoWindow, Marker, GoogleApiWrapper} from "google-maps-react";
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
+
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+});
+
+const customIcon = new L.Icon({
+  iconUrl: require('./new-marker.png'),
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32]
+});
 
 export class MapContainer extends React.Component {
   state = {
-    showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {},
-    markerLoc: [],
-    mapStyles: [
-      {
-        "featureType": "all",
-        "elementType": "geometry",
-        "stylers": [{"color": "#F5F2E8"}]
-      },
-      {
-        "featureType": "water",
-        "elementType": "geometry",
-        "stylers": [{"color": "#4A90A4"}]
-      },
-      {
-        "featureType": "landscape",
-        "elementType": "geometry",
-        "stylers": [{"color": "#F5F2E8"}]
-      },
-      {
-        "featureType": "road",
-        "elementType": "geometry",
-        "stylers": [{"color": "#ffffff"}, {"lightness": 20}]
-      },
-      {
-        "featureType": "poi",
-        "elementType": "geometry",
-        "stylers": [{"color": "#ebe9e1"}]
-      },
-      {
-        "featureType": "poi.park",
-        "elementType": "geometry",
-        "stylers": [{"color": "#d4e8d4"}]
-      },
-      {
-        "featureType": "administrative",
-        "elementType": "labels.text.fill",
-        "stylers": [{"color": "#2C2C2C"}]
-      },
-      {
-        "featureType": "road",
-        "elementType": "labels.text.fill",
-        "stylers": [{"color": "#8B8B7A"}]
-      }
-    ]
+    center: [30.06263, 31.24967],
+    zoom: 7
   }
-// add function to show infowindow
-onMarkerClick = (props, marker, e) =>
-    this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
-      showingInfoWindow: true,
-  
-});
- // close infowindow when map clicked
-onMapClicked = (props) => {
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-    })
-  }
-};
 
-// main component render function
+generateNavigationUrl = (lat, lng, name) => {
+    const encodedName = encodeURIComponent(name);
+    if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+      return `maps://maps.apple.com/?q=${encodedName}&ll=${lat},${lng}`;
+    } else if (/Android/.test(navigator.userAgent)) {
+      return `geo:${lat},${lng}?q=${lat},${lng}(${encodedName})`;
+    }
+    return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+  }
+
 render() {
   let {showingPlaces}=this.props
 
       return (
-      <div 
+      <div
       title="egypt cities map"
       tabIndex="-1"
+      style={{ height: '100%', width: '100%' }}
       >
-      
           <Map
-              tabIndex="2"
-              google={this.props.google}
-              title="search city location"
-              onClick={this.onMapClicked}
-              initialCenter={{lat:30.06263, lng:31.24967 }}
-              zoom={7}
-              styles={this.state.mapStyles}
+              center={this.state.center}
+              zoom={this.state.zoom}
+              style={{ height: '100%', width: '100%' }}
           >
-      
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+
          {showingPlaces.map((place)=>(
-                  <Marker 
-                  tabIndex="0"
+                  <Marker
                   key={place.id}
-                  className="marker"
-                  name={place.name}
-                  position={place.position}
-                  title={place.title}
-                  animation= {this.props.google.maps.Animation.DROP}
-                  onClick={this.onMarkerClick}  
-                  description=
-                                {
-                            "Country: " + place.description.Country+", Governorate: "+ 
-                          place.description.Governorate +", Population: "+
-                          place.description.Population +", Elevation: "+
-                          place.description.Elevation +", TimeZone: "+
-                          place.description.TimeZone +", Longitude: "+
-                          place.description.Longitude +", Latitude: "+
-                          place.description.Latitude +", Airport: "+
-                          place.description.Airport 
-                          }
-                        />  
-                ))}      
-        
-                    <InfoWindow
-                            marker={this.state.activeMarker}
-                            visible={this.state.showingInfoWindow}>
-                                <div style={{
-                                  padding: 16,
-                                  fontFamily: "'Inter', sans-serif",
-                                  background: "#FEFDF8",
-                                  borderRadius: 8,
-                                  border: "2px solid #F5A623",
-                                }}>
-                                  <h2 style={{
-                                    fontFamily: "'Playfair Display', serif",
-                                    color: "#006847",
-                                    fontSize: "1.3rem",
-                                    margin: "0 0 8px 0",
-                                    fontWeight: 700,
-                                  }}>
-                                    {this.state.selectedPlace.name}
-                                  </h2>
-                                  <p style={{
-                                    fontSize: '0.9rem',
-                                    lineHeight: 1.5,
-                                    margin: 0,
-                                    maxWidth:"280px",
-                                    wordWrap:"break-word",
-                                    color: "#2C2C2C",
-                                  }}>
-                                    {this.state.selectedPlace.description}
-                                  </p>
-                                </div>
-            
-                      </InfoWindow>
-       
+                  position={[place.position.lat, place.position.lng]}
+                  icon={customIcon}
+                  >
+                    <Popup>
+                      <div style={{
+                        fontFamily: "'Inter', sans-serif",
+                        minWidth: "280px",
+                      }}>
+                        <h2 style={{
+                          fontFamily: "'Playfair Display', serif",
+                          color: "#006847",
+                          fontSize: "1.3rem",
+                          margin: "0 0 12px 0",
+                          fontWeight: 700,
+                        }}>
+                          {place.name}
+                        </h2>
+                        <p style={{
+                          fontSize: '0.85rem',
+                          lineHeight: 1.6,
+                          margin: "0 0 12px 0",
+                          color: "#2C2C2C",
+                        }}>
+                          {place.title}
+                        </p>
+                        <div style={{
+                          fontSize: '0.8rem',
+                          lineHeight: 1.6,
+                          color: "#555",
+                          marginBottom: 12,
+                        }}>
+                          <p style={{ margin: "4px 0" }}><strong>Country:</strong> {place.description.Country}</p>
+                          <p style={{ margin: "4px 0" }}><strong>Governorate:</strong> {place.description.Governorate}</p>
+                          <p style={{ margin: "4px 0" }}><strong>Population:</strong> {place.description.Population}</p>
+                          <p style={{ margin: "4px 0" }}><strong>Elevation:</strong> {place.description.Elevation}</p>
+                          <p style={{ margin: "4px 0" }}><strong>Airport:</strong> {place.description.Airport}</p>
+                          <p style={{ margin: "4px 0" }}><strong>Coordinates:</strong> {place.position.lat.toFixed(4)}, {place.position.lng.toFixed(4)}</p>
+                        </div>
+                        <a
+                          href={this.generateNavigationUrl(place.position.lat, place.position.lng, place.name)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: "inline-block",
+                            padding: "10px 20px",
+                            background: "linear-gradient(135deg, #F5A623 0%, #D4774E 100%)",
+                            color: "#2C2C2C",
+                            textDecoration: "none",
+                            borderRadius: 6,
+                            fontWeight: 600,
+                            fontSize: "0.9rem",
+                            textAlign: "center",
+                            width: "100%",
+                            boxSizing: "border-box",
+                          }}
+                        >
+                          Navigate to {place.name}
+                        </a>
+                      </div>
+                    </Popup>
+                  </Marker>
+                ))}
           </Map>
-      
-      </div> 
+      </div>
     );
-   
   }
 }
-// add proptypes
 MapContainer.propTypes= {
-  showingInfoWindow: PropTypes.bool,
-  activeMarker: PropTypes.object,
-  selectedPlace: PropTypes.object,
-  markerLoc: PropTypes.array,
+  showingPlaces: PropTypes.array,
 }
 
-// supply needed keys for google maps
-export default GoogleApiWrapper({
-  apiKey: "AIzaSyA6r-0uKAveD9h5h16UOg_et35IXO2XW2A"
-})(MapContainer);
+export default MapContainer;
