@@ -10,15 +10,15 @@ class Menu extends React.Component {
   generateNavigationUrl = (lat, lng, name) => {
     const encodedName = encodeURIComponent(name);
     if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-      return `maps://maps.apple.com/?q=${encodedName}&ll=${lat},${lng}`;
+      return `maps://maps.apple.com/?q=${encodedName}`;
     } else if (/Android/.test(navigator.userAgent)) {
-      return `geo:${lat},${lng}?q=${lat},${lng}(${encodedName})`;
+      return `geo:0,0?q=${encodedName}`;
     }
-    return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+    return `https://www.google.com/maps/search/?api=1&query=${encodedName}`;
   }
 
   render() {
-    const { updateQuery } = this.props;
+    const { updateQuery, loading, error } = this.props;
     let { showingPlaces, data } = this.props;
 
     return (
@@ -27,15 +27,44 @@ class Menu extends React.Component {
           padding: "20px",
           borderBottom: "1px solid rgba(245, 166, 35, 0.2)",
         }}>
-          <h3 style={{
-            color: "#F5A623",
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "1.4rem",
-            marginBottom: "8px",
-            fontWeight: 700,
-          }}>
-            Discover Egypt
-          </h3>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+            <h3 style={{
+              color: "#F5A623",
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "1.4rem",
+              margin: 0,
+              fontWeight: 700,
+            }}>
+              Discover Egypt
+            </h3>
+            {(this.props.query || (data && data.length > 0)) && (
+              <button
+                onClick={() => {
+                  this.props.clearQuery();
+                  this.setState({ hoveredPlace: null, hoveredVenue: null });
+                }}
+                style={{
+                  padding: "8px 16px",
+                  background: "rgba(245, 166, 35, 0.2)",
+                  border: "1px solid #F5A623",
+                  borderRadius: 6,
+                  color: "#F5A623",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  transition: "all 0.3s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.background = "rgba(245, 166, 35, 0.3)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = "rgba(245, 166, 35, 0.2)";
+                }}
+              >
+                Reset
+              </button>
+            )}
+          </div>
           <p style={{
             color: "#F5F2E8",
             fontSize: "0.85rem",
@@ -161,9 +190,7 @@ class Menu extends React.Component {
                   fontWeight: 500,
                   transition: "all 0.3s ease",
                   fontFamily: "'Inter', sans-serif",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  transform: this.state.hoveredPlace === place.id ? "translateX(4px)" : "translateX(0)",
                 }}
                 onClick={() => {
                   updateQuery(place.name);
@@ -174,36 +201,54 @@ class Menu extends React.Component {
                 onMouseLeave={() => this.setState({ hoveredPlace: null })}
                 role="option"
               >
-                <span>{place.name}</span>
-                <a
-                  href={this.generateNavigationUrl(place.position.lat, place.position.lng, place.name)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  style={{
-                    padding: "6px 12px",
-                    background: "linear-gradient(135deg, #F5A623 0%, #D4774E 100%)",
-                    color: "#2C2C2C",
-                    textDecoration: "none",
-                    borderRadius: 4,
-                    fontSize: "0.75rem",
-                    fontWeight: 600,
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.transform = "scale(1.05)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.transform = "scale(1)";
-                  }}
-                >
-                  Navigate
-                </a>
+                {place.name}
               </li>
             ))}
           </ul>
         </div>
-        {(data && data.length > 0) && (
+        {loading && (
+          <div style={{ padding: "20px", textAlign: "center" }}>
+            <div style={{
+              display: "inline-block",
+              width: "50px",
+              height: "50px",
+              border: "4px solid rgba(245, 166, 35, 0.3)",
+              borderTop: "4px solid #F5A623",
+              borderRadius: "50%",
+              animation: "spin 1s linear infinite",
+            }} />
+            <p style={{
+              color: "#F5F2E8",
+              marginTop: "12px",
+              fontSize: "0.9rem",
+            }}>
+              Finding amazing places...
+            </p>
+            <style>
+              {`
+                @keyframes spin {
+                  0% { transform: rotate(0deg); }
+                  100% { transform: rotate(360deg); }
+                }
+              `}
+            </style>
+          </div>
+        )}
+        {error && !loading && (
+          <div style={{
+            padding: "20px",
+            margin: "0 20px 20px 20px",
+            background: "rgba(212, 119, 78, 0.15)",
+            border: "1px solid rgba(212, 119, 78, 0.4)",
+            borderRadius: 8,
+            color: "#F5F2E8",
+            fontSize: "0.9rem",
+            textAlign: "center",
+          }}>
+            {error}
+          </div>
+        )}
+        {(data && data.length > 0 && !loading) && (
           <div style={{ padding: "0 20px 20px 20px" }}>
             <h4 style={{
               color: "#F5A623",
