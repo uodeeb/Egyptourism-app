@@ -1,0 +1,51 @@
+.breadcrumb-nav {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.breadcrumb-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-button {
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  color: #0066cc;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.breadcrumb-button:hover {
+  background: rgba(0, 102, 204, 0.1);
+}
+
+.breadcrumb-button.current {
+  color: #333;
+  cursor: default;
+  font-weight: 500;
+}
+
+.breadcrumb-button.current:hover {
+  background: none;
+}
+
+.breadcrumb-separator {
+  margin: 0 8px;
+  color: #666;
+  font-size: 16px;
+}

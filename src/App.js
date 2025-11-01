@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import escapeRegExp from "escape-string-regexp";
 import sortBy from "sort-by";
 import Axios from "axios";
+import { additionalCities } from './data/additionalCities';
 
 class App extends Component {
   // main app constructor
@@ -21,7 +22,9 @@ class App extends Component {
       data: [],
       loading: false,
       error: null,
+      selectedCity: null,
       locations: [
+        ...additionalCities,
         {
           id: 1,
           name: "Cairo",
