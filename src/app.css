@@ -202,6 +202,56 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.custom-marker {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: markerDrop 0.5s ease-out;
+}
+
+@keyframes markerDrop {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border: 2px solid #F5A623;
+}
+
+.leaflet-popup-tip {
+  border-top-color: #F5A623;
+}
+
+.leaflet-control-zoom {
+  border: 2px solid rgba(245, 166, 35, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+  background: linear-gradient(135deg, #006847 0%, #004D3D 100%);
+  color: #F5A623;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.leaflet-control-zoom a:hover {
+  background: linear-gradient(135deg, #F5A623 0%, #D4774E 100%);
+  color: #2C2C2C;
+}
+
 @media screen and (min-width: 800px) {
   .head {
     font-family: 'Playfair Display', serif;

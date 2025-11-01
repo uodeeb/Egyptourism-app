@@ -19,17 +19,19 @@ class App extends Component {
       showingPlaces: [],
       query: "",
       data: [],
+      loading: false,
+      error: null,
       locations: [
         {
           id: 1,
           name: "Cairo",
-          title: "Cairo is the capital of Egypt",
+          title: "Cairo - The City of a Thousand Minarets",
           position: { lat: 30.06263, lng: 31.24967 },
           description: {
             Country: "Egypt",
-            Governorate: "Muhafazat al Qahirah",
-            Population: "7,734,614",
-            Elevation: "23 m over sea level",
+            Governorate: "Cairo",
+            Population: "9,500,000",
+            Elevation: "23 m",
             TimeZone: "EEST",
             Longitude: 31.24967,
             Latitude: 30.06263,
@@ -39,13 +41,13 @@ class App extends Component {
         {
           id: 2,
           name: "Giza",
-          title: "Giza where pyramids located in Egypt",
+          title: "Giza - Home of the Great Pyramids",
           position: { lat: 30.00808, lng: 31.21093 },
           description: {
             Country: "Egypt",
-            Governorate: "Al Jizah",
-            Population: "2,443,203",
-            Elevation: "	30 m over sea level",
+            Governorate: "Giza",
+            Population: "8,800,000",
+            Elevation: "30 m",
             TimeZone: "EEST",
             Longitude: 31.21093,
             Latitude: 30.00808,
@@ -55,13 +57,13 @@ class App extends Component {
         {
           id: 3,
           name: "Alexandria",
-          title: "Alexandria is the Mediterranean Sea shore of Egypt",
+          title: "Alexandria - Pearl of the Mediterranean",
           position: { lat: 31.21564, lng: 29.95527 },
           description: {
             Country: "Egypt",
-            Governorate: "	Alexandria",
-            Population: "3,811,516",
-            Elevation: "0 m over sea level",
+            Governorate: "Alexandria",
+            Population: "5,200,000",
+            Elevation: "0 m",
             TimeZone: "EEST",
             Longitude: 29.95527,
             Latitude: 31.21564,
@@ -71,13 +73,13 @@ class App extends Component {
         {
           id: 4,
           name: "Hurghada",
-          title: "Hurghada is the Red Sea shore of Egypt",
+          title: "Hurghada - Red Sea Resort Paradise",
           position: { lat: 27.25738, lng: 33.81291 },
           description: {
             Country: "Egypt",
             Governorate: "Red Sea",
-            Population: "95,622",
-            Elevation: "11 m over sea level",
+            Population: "280,000",
+            Elevation: "11 m",
             TimeZone: "EEST",
             Longitude: 33.81291,
             Latitude: 27.25738,
@@ -87,13 +89,13 @@ class App extends Component {
         {
           id: 5,
           name: "Aswan",
-          title: "Aswan is a famous palace to visit in Egypt",
+          title: "Aswan - Gateway to Ancient Nubia",
           position: { lat: 24.09082, lng: 32.89942 },
           description: {
             Country: "Egypt",
             Governorate: "Aswan",
-            Population: "241,261",
-            Elevation: "99 m over sea level",
+            Population: "290,000",
+            Elevation: "99 m",
             TimeZone: "EEST",
             Longitude: 32.89942,
             Latitude: 24.09082,
@@ -102,14 +104,110 @@ class App extends Component {
         },
         {
           id: 6,
-          name: "Al Fayyūm",
-          title: "Al Fayum is a city found in Muhafazat al Fayyum, Egypt",
+          name: "Luxor",
+          title: "Luxor - World's Greatest Open-Air Museum",
+          position: { lat: 25.69893, lng: 32.6421 },
+          description: {
+            Country: "Egypt",
+            Governorate: "Luxor",
+            Population: "506,000",
+            Elevation: "89 m",
+            TimeZone: "EEST",
+            Longitude: 32.6421,
+            Latitude: 25.69893,
+            Airport: "Luxor International Airport",
+          },
+        },
+        {
+          id: 7,
+          name: "Port Said",
+          title: "Port Said - Gateway to the Suez Canal",
+          position: { lat: 31.26550, lng: 32.30129 },
+          description: {
+            Country: "Egypt",
+            Governorate: "Port Said",
+            Population: "750,000",
+            Elevation: "1 m",
+            TimeZone: "EEST",
+            Longitude: 32.30129,
+            Latitude: 31.26550,
+            Airport: "Port Said Airport",
+          },
+        },
+        {
+          id: 8,
+          name: "Suez",
+          title: "Suez - Historic Canal City",
+          position: { lat: 29.97371, lng: 32.52627 },
+          description: {
+            Country: "Egypt",
+            Governorate: "Suez",
+            Population: "728,000",
+            Elevation: "11 m",
+            TimeZone: "EEST",
+            Longitude: 32.52627,
+            Latitude: 29.97371,
+            Airport: "Port Said Airport",
+          },
+        },
+        {
+          id: 9,
+          name: "Sharm El Sheikh",
+          title: "Sharm El Sheikh - Sinai Peninsula Jewel",
+          position: { lat: 27.91582, lng: 34.32995 },
+          description: {
+            Country: "Egypt",
+            Governorate: "South Sinai",
+            Population: "73,000",
+            Elevation: "10 m",
+            TimeZone: "EEST",
+            Longitude: 34.32995,
+            Latitude: 27.91582,
+            Airport: "Sharm El Sheikh International Airport",
+          },
+        },
+        {
+          id: 10,
+          name: "Tanta",
+          title: "Tanta - Heart of the Nile Delta",
+          position: { lat: 30.78617, lng: 31.00152 },
+          description: {
+            Country: "Egypt",
+            Governorate: "Gharbia",
+            Population: "658,000",
+            Elevation: "15 m",
+            TimeZone: "EEST",
+            Longitude: 31.00152,
+            Latitude: 30.78617,
+            Airport: "Cairo International Airport",
+          },
+        },
+        {
+          id: 11,
+          name: "Ismailia",
+          title: "Ismailia - City of Beauty and Enchantment",
+          position: { lat: 30.58316, lng: 32.26535 },
+          description: {
+            Country: "Egypt",
+            Governorate: "Ismailia",
+            Population: "750,000",
+            Elevation: "5 m",
+            TimeZone: "EEST",
+            Longitude: 32.26535,
+            Latitude: 30.58316,
+            Airport: "Ismailia Airport",
+          },
+        },
+        {
+          id: 12,
+          name: "Faiyum",
+          title: "Faiyum - Ancient Oasis City",
           position: { lat: 29.30995, lng: 30.8418 },
           description: {
             Country: "Egypt",
-            Governorate: "Al Fayyūm",
-            Population: "306,393",
-            Elevation: "29 m over sea level",
+            Governorate: "Faiyum",
+            Population: "475,000",
+            Elevation: "29 m",
             TimeZone: "EEST",
             Longitude: 30.8418,
             Latitude: 29.30995,
@@ -117,100 +215,131 @@ class App extends Component {
           },
         },
         {
-          id: 7,
-          name: "Al Minya",
-          title: "Al Minya is a city found in Al Minya, Egypt",
-          position: { lat: 28.10988, lng: 30.7503 },
+          id: 13,
+          name: "Zagazig",
+          title: "Zagazig - Agricultural Hub of Egypt",
+          position: { lat: 30.58768, lng: 31.50214 },
           description: {
             Country: "Egypt",
-            Governorate: "Al Minya",
-            Population: "227,150",
-            Elevation: "	49 m over sea level",
+            Governorate: "Sharqia",
+            Population: "628,000",
+            Elevation: "15 m",
             TimeZone: "EEST",
-            Longitude: 30.7503,
-            Latitude: 28.10988,
-            Airport: "El Minya Airport (EMY)",
+            Longitude: 31.50214,
+            Latitude: 30.58768,
+            Airport: "Cairo International Airport",
           },
         },
         {
-          id: 8,
-          name: "Asyut",
-          title: "Asyut is a city found in Asyut, Egypt",
-          position: { lat: 27.18096, lng: 31.18368 },
-          description: {
-            Country: "Egypt",
-            Governorate: "Asyut",
-            Population: "420,585",
-            Elevation: "	56 m over sea level",
-            TimeZone: "EEST",
-            Longitude: 31.18368,
-            Latitude: 27.18096,
-            Airport: "Assiut Airport (ATZ)",
-          },
-        },
-        {
-          id: 9,
-          name: "Suez",
-          title: "Suez is a city found in Al Suways, Egypt",
-          position: { lat: 29.97371, lng: 32.52627 },
-          description: {
-            Country: "Egypt",
-            Governorate: "	Al Suways",
-            Population: "488,125",
-            Elevation: "11 m over sea level",
-            TimeZone: "EEST",
-            Longitude: 32.52627,
-            Latitude: 29.97371,
-            Airport: "Port Said Airport (PSD)",
-          },
-        },
-        {
-          id: 10,
-          name: "	Luxor",
-          title: "Luxor is a city found in Luxor, Egypt",
-          position: { lat: 25.69893, lng: 32.6421 },
-          description: {
-            Country: "Egypt",
-            Governorate: "	Luxor",
-            Population: "422,407",
-            Elevation: "89 m over sea level",
-            TimeZone: "EEST",
-            Longitude: 32.6421,
-            Latitude: 25.69893,
-            Airport: "Luxor Airport (LXR)",
-          },
-        },
-        {
-          id: 11,
-          name: "Marsa Matruh",
-          title: "Marsa Matruh is a city found in Muhafazat Matruh, Egypt",
-          position: { lat: 31.3529, lng: 27.23725 },
-          description: {
-            Country: "Egypt",
-            Governorate: "Muhafazat Matruh",
-            Population: "62,042",
-            Elevation: "7 m over sea level",
-            TimeZone: "EEST",
-            Longitude: 27.23725,
-            Latitude: 31.3529,
-            Airport: "Marsa Matruh Airport (MUH)",
-          },
-        },
-        {
-          id: 12,
-          name: "Al Mansurah",
-          title:
-            "Al Mansurah is a city found in Muhafazat ad Daqahliyah, Egypt",
+          id: 14,
+          name: "Mansoura",
+          title: "Mansoura - Victorious City",
           position: { lat: 31.03637, lng: 31.38069 },
           description: {
             Country: "Egypt",
-            Governorate: "Muhafazat ad Daqahliyah",
-            Population: "	420,195",
-            Elevation: "15 m over sea level",
+            Governorate: "Dakahlia",
+            Population: "960,000",
+            Elevation: "15 m",
             TimeZone: "EEST",
             Longitude: 31.38069,
             Latitude: 31.03637,
             Airport: "Cairo International Airport",
+          },
+        },
+        {
+          id: 15,
+          name: "Asyut",
+          title: "Asyut - Gateway to Upper Egypt",
+          position: { lat: 27.18096, lng: 31.18368 },
+          description: {
+            Country: "Egypt",
+            Governorate: "Asyut",
+            Population: "600,000",
+            Elevation: "56 m",
+            TimeZone: "EEST",
+            Longitude: 31.18368,
+            Latitude: 27.18096,
+            Airport: "Asyut Airport",
+          },
+        },
+        {
+          id: 16,
+          name: "Damanhur",
+          title: "Damanhur - Historic Beheira Capital",
+          position: { lat: 31.03408, lng: 30.46823 },
+          description: {
+            Country: "Egypt",
+            Governorate: "Beheira",
+            Population: "743,000",
+            Elevation: "8 m",
+            TimeZone: "EEST",
+            Longitude: 30.46823,
+            Latitude: 31.03408,
+            Airport: "Borg El Arab Airport",
+          },
+        },
+        {
+          id: 17,
+          name: "Minya",
+          title: "Minya - Bride of Upper Egypt",
+          position: { lat: 28.10988, lng: 30.7503 },
+          description: {
+            Country: "Egypt",
+            Governorate: "Minya",
+            Population: "335,000",
+            Elevation: "49 m",
+            TimeZone: "EEST",
+            Longitude: 30.7503,
+            Latitude: 28.10988,
+            Airport: "Minya Airport",
+          },
+        },
+        {
+          id: 18,
+          name: "Damietta",
+          title: "Damietta - Furniture Capital of Egypt",
+          position: { lat: 31.41648, lng: 31.81332 },
+          description: {
+            Country: "Egypt",
+            Governorate: "Damietta",
+            Population: "700,000",
+            Elevation: "3 m",
+            TimeZone: "EEST",
+            Longitude: 31.81332,
+            Latitude: 31.41648,
+            Airport: "Cairo International Airport",
+          },
+        },
+        {
+          id: 19,
+          name: "Beni Suef",
+          title: "Beni Suef - City of Upper Egypt",
+          position: { lat: 29.07730, lng: 31.09580 },
+          description: {
+            Country: "Egypt",
+            Governorate: "Beni Suef",
+            Population: "320,000",
+            Elevation: "31 m",
+            TimeZone: "EEST",
+            Longitude: 31.09580,
+            Latitude: 29.07730,
+            Airport: "Cairo International Airport",
+          },
+        },
+        {
+          id: 20,
+          name: "Qena",
+          title: "Qena - Gateway to the Red Sea",
+          position: { lat: 26.16420, lng: 32.71590 },
+          description: {
+            Country: "Egypt",
+            Governorate: "Qena",
+            Population: "380,000",
+            Elevation: "68 m",
+            TimeZone: "EEST",
+            Longitude: 32.71590,
+            Latitude: 26.16420,
+            Airport: "Luxor International Airport",
           },
         },
       ],
@@ -236,8 +365,15 @@ class App extends Component {
   };
 
   getFsquareData = (query) => {
+    if (!query) {
+      this.setState({ error: "Please enter a city name to search", data: [] });
+      return;
+    }
+
     this.setState({
       data: [],
+      loading: true,
+      error: null,
     });
 
     const endPoint = "https://api.foursquare.com/v2/venues/explore?";
@@ -254,11 +390,21 @@ class App extends Component {
 
     Axios.get(endPoint + new URLSearchParams(params))
       .then((response) => {
-        console.log(response)
-        this.setState({ data: response.data.response.groups[0].items });
+        console.log(response);
+        const venues = response.data.response.groups[0] && response.data.response.groups[0].items ? response.data.response.groups[0].items : [];
+        this.setState({
+          data: venues,
+          loading: false,
+          error: venues.length === 0 ? `No places found in ${query}. Try another city!` : null
+        });
       })
       .catch((error) => {
-        console.log("this is not cool, api not responding", error);
+        console.log("API error:", error);
+        this.setState({
+          loading: false,
+          error: "Unable to fetch places. Please check your connection and try again.",
+          data: []
+        });
       });
   };
 
@@ -267,9 +413,8 @@ class App extends Component {
     this.setState({ query: query });
   };
 
-  // add areset function
   clearQuery = () => {
-    this.setState({ query: "" });
+    this.setState({ query: "", data: [], error: null });
   };
 
   render() {
@@ -304,6 +449,8 @@ class App extends Component {
               filterQuery={this.filterQuery}
               getFsquareData={this.getFsquareData}
               data={data}
+              loading={this.state.loading}
+              error={this.state.error}
               changeQuery={this.changeQuery}
               title="city list"
             />

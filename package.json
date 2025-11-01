@@ -13,7 +13,7 @@
     "react": "16.4.0",
     "react-art": "16.4.0",
     "react-dom": "16.4.0",
-    "react-leaflet": "^2.2.1",
+    "react-leaflet": "2.0.1",
     "react-native-geocoding": "^0.3.0",
     "react-native-web": "0.8.x",
     "react-router": "^4.3.1",
@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build --legacy-peer-deps || react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
