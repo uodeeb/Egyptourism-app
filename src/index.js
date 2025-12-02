@@ -1,6 +1,5 @@
 import { AppRegistry } from "react-native";
 import App from "./App";
-import registerServiceWorker from './registerServiceWorker';
 
 AppRegistry.registerComponent("App", () => App);
 
@@ -9,5 +8,10 @@ AppRegistry.runApplication("App", {
 });
 /*____________________ add service worker function ___________________*/
 
-navigator.serviceWorker
-.register('./registerServiceWorker.js');
+// service worker registration — register directly if supported
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./registerServiceWorker.js').catch((err) => {
+    // don't let a service worker registration failure block the app
+    console.warn('Service worker registration failed:', err);
+  });
+}

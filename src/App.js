@@ -423,15 +423,13 @@ class App extends Component {
   render() {
     // filter function
     const { data } = this.state;
-    if (this.state.query) {
-      const match = new RegExp(escapeRegExp(this.state.query), "i");
-      this.state.showingPlaces = this.state.locations.filter((place) =>
-        match.test(place.name)
-      );
-    } else {
-      this.state.showingPlaces = this.state.locations;
-    }
-    this.state.showingPlaces.sort(sortBy("name"));
+      // determine which places to show without mutating state directly
+      let showingPlaces = this.state.locations.slice();
+      if (this.state.query) {
+        const match = new RegExp(escapeRegExp(this.state.query), "i");
+        showingPlaces = showingPlaces.filter((place) => match.test(place.name));
+      }
+      showingPlaces.sort(sortBy("name"));
 
     return (
       <View style={styles.app}>
@@ -448,7 +446,7 @@ class App extends Component {
               query={this.state.query}
               updateQuery={this.updateQuery}
               clearQuery={this.clearQuery}
-              showingPlaces={this.state.showingPlaces}
+                showingPlaces={showingPlaces}
               filterQuery={this.filterQuery}
               getFsquareData={this.getFsquareData}
               data={data}
@@ -465,7 +463,7 @@ class App extends Component {
               query={this.state.query}
               updateQuery={this.updateQuery}
               clearQuery={this.clearQuery}
-              showingPlaces={this.state.showingPlaces}
+                showingPlaces={showingPlaces}
               data={data}
             />
           </View>
